@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Historia de la Minería de Datos - Cómic</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Permanent+Marker&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: #1a1a1a;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+
+        
+        .comic-page {
+            max-width: 1400px;
+            margin: 0 auto 40px;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+            position: relative;
+        }
+        
+        .page-number {
+            position: absolute;
+            bottom: 20px;
+            right: 40px;
+            font-family: 'Bangers', cursive;
+            font-size: 2em;
+            color: #ff4757;
+            text-shadow: 2px 2px 0px #000;
+        }
+        
+        .comic-title-page {
+            background: radial-gradient(circle, #ffd93d 0%, #ff6b35 100%);
+            text-align: center;
+            padding: 100px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .comic-title-page::before {
+            content: '💥';
+            position: absolute;
+            font-size: 20em;
+            opacity: 0.1;
+            top: -50px;
+            left: -50px;
+            animation: rotate 20s infinite linear;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .main-title {
+            font-family: 'Bangers', cursive;
+            font-size: 5em;
+            color: #fff;
+            text-shadow: 5px 5px 0px #000, 
+                         8px 8px 0px #ff4757;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .subtitle {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 2em;
+            color: #000;
+            text-shadow: 2px 2px 0px #fff;
+        }
+        
+        .panel-grid {
+            display: grid;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .panel-row {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .panel-row.two-cols {
+            grid-template-columns: 1fr 1fr;
+        }
+        
+        .panel-row.three-cols {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+        
+        .panel {
+            border: 6px solid #000;
+            border-radius: 5px;
+            padding: 25px;
+            position: relative;
+            background: white;
+            box-shadow: 4px 4px 0px #000;
+            overflow: hidden;
+        }
+        
+        .panel.action {
+            background: linear-gradient(135deg, #fff5e6 0%, #ffe6f0 100%);
+        }
+        
+        .panel.dramatic {
+            background: linear-gradient(135deg, #e6f3ff 0%, #f0e6ff 100%);
+        }
+        
+        .panel.explosive {
+            background: radial-gradient(circle, #fff9e6 0%, #ffe6e6 100%);
+        }
+        
+        .sound-effect {
+            font-family: 'Bangers', cursive;
+            font-size: 3em;
+            color: #ff4757;
+            text-shadow: 3px 3px 0px #000;
+            position: absolute;
+            z-index: 10;
+            animation: shake 0.5s infinite;
+            letter-spacing: 3px;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+        
+        .sound-effect.top-right {
+            top: 10px;
+            right: 20px;
+        }
+        
+        .sound-effect.top-left {
+            top: 10px;
+            left: 20px;
+        }
+        
+        .sound-effect.center {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4em;
+        }
+        
+        .character-scene {
+            display: flex;
+            align-items: flex-end;
+            gap: 20px;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .character {
+            text-align: center;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .character-img {
+            font-size: 5em;
+            display: block;
+            margin-bottom: 10px;
+            filter: drop-shadow(3px 3px 0px #000);
+        }
+        
+        .character-name {
+            font-family: 'Bangers', cursive;
+            background: #000;
+            color: #ffd93d;
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 1.2em;
+            letter-spacing: 1px;
+        }
+        
+        .speech-bubble {
+            background: white;
+            border: 4px solid #000;
+            border-radius: 20px;
+            padding: 20px;
+            position: relative;
+            box-shadow: 4px 4px 0px #000;
+            margin: 20px 0;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        
+        .speech-bubble::before {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 40px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 20px 20px 0 0;
+            border-color: #000 transparent transparent transparent;
+        }
+        
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -13px;
+            left: 44px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 16px 16px 0 0;
+            border-color: white transparent transparent transparent;
+        }
+        
+        .speech-bubble.right::before {
+            left: auto;
+            right: 40px;
+            border-width: 20px 0 0 20px;
+        }
+        
+        .speech-bubble.right::after {
+            left: auto;
+            right: 44px;
+            border-width: 16px 0 0 16px;
+        }
+        
+        .thought-bubble {
+            background: #e6f7ff;
+            border: 4px dashed #000;
+            border-radius: 50px;
+            padding: 20px;
+            position: relative;
+            box-shadow: 4px 4px 0px #000;
+            margin: 20px 0;
+            font-style: italic;
+        }
+        
+        .thought-bubble::before {
+            content: '○';
+            position: absolute;
+            bottom: -30px;
+            left: 50px;
+            font-size: 2em;
+            color: #000;
+        }
+        
+        .thought-bubble::after {
+            content: '○';
+            position: absolute;
+            bottom: -45px;
+            left: 40px;
+            font-size: 1.2em;
+            color: #000;
+        }
+        
+        .explosion-text {
+            font-family: 'Bangers', cursive;
+            font-size: 2em;
+            color: #ff4757;
+            text-align: center;
+            padding: 20px;
+            background: #fff;
+            border: 5px solid #000;
+            border-radius: 50%;
+            margin: 20px auto;
+            width: fit-content;
+            box-shadow: 0 0 20px rgba(255, 71, 87, 0.5);
+            animation: explode 1s infinite;
+        }
+        
+        @keyframes explode {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .caption-box {
+            background: #ffd93d;
+            border: 4px solid #000;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Permanent Marker', cursive;
+            box-shadow: 3px 3px 0px #000;
+            font-size: 1.1em;
+        }
+        
+        .timeline-visual {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        .timeline-visual::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: #000;
+            z-index: 0;
+        }
+        
+        .timeline-point {
+            background: #ff4757;
+            border: 5px solid #000;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bangers', cursive;
+            font-size: 1.5em;
+            color: white;
+            text-shadow: 2px 2px 0px #000;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 0 20px rgba(255, 71, 87, 0.5);
+        }
+        
+        .highlight {
+            background: #ffd93d;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+            border: 2px solid #000;
+            box-shadow: 2px 2px 0px #000;
+        }
+        
+        .zoom-effect {
+            animation: zoomIn 0.5s ease-out;
+        }
+        
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .speed-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                -45deg,
+                transparent,
+                transparent 10px,
+                rgba(0,0,0,0.05) 10px,
+                rgba(0,0,0,0.05) 11px
+            );
+            pointer-events: none;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+
+            .comic-page {
+                page-break-after: always;
+                margin-bottom: 0;
+                box-shadow: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .panel-row.two-cols,
+            .panel-row.three-cols {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-title {
+                font-size: 3em;
+            }
+
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PÁGINA DE TÍTULO -->
+    <div class="comic-page comic-title-page">
+        <h1 class="main-title">⚡ LA MINERÍA DE DATOS ⚡</h1>
+        <p class="subtitle">¡Una aventura épica a través del tiempo!</p>
+        <div style="margin-top: 50px; font-size: 3em;">🦸‍♂️💎🤖</div>
+    </div>
+    
+    <!-- PÁGINA 1 -->
+    <div class="comic-page">
+        <div class="sound-effect top-right">WHOOSH!</div>
+        
+        <div class="caption-box">
+            📅 <strong>AÑOS 1960-1970:</strong> Nuestros héroes viajan en el tiempo al origen de todo...
+        </div>
+        
+        <div class="panel explosive">
+            <div class="speed-lines"></div>
+            <div class="character-scene">
+                <div class="character">
+                    <span class="character-img">👨‍🔬</span>
+                    <span class="character-name">DR. DATA</span>
+                </div>
+                <div style="flex: 1;">
+                    <div class="speech-bubble">
+                        ¡BAM! Aterrizamos en los años 60. Mira, ¡las primeras <span class="highlight">COMPUTADORAS GIGANTES</span>! Eran del tamaño de una habitación y apenas podían almacenar información...
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="panel-row two-cols">
+            <div class="panel action">
+                <div class="sound-effect top-left">BEEP!</div>
+                <div class="character-scene">
+                    <div style="flex: 1;">
+                        <div class="speech-bubble right">
+                            Los científicos se preguntaban: <span class="highlight">"¿Cómo encontrar patrones en estos datos?"</span> Era como buscar una aguja en un pajar... ¡pero digital!
+                        </div>
+                    </div>
+                    <div class="character">
+                        <span class="character-img">🧮</span>
+                        <span class="character-name">PROF. STATS</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel dramatic">
+                <div class="thought-bubble">
+                    Las <span class="highlight">bases de datos</span> y la <span class="highlight">estadística</span> eran nuestras únicas armas... ¡Pero necesitábamos algo más poderoso! 💪
+                </div>
+                <div style="text-align: center; font-size: 3em; margin-top: 20px;">🤔💭</div>
+            </div>
+        </div>
+        
+        <div class="page-number">- 1 -</div>
+    </div>
+    
+    <!-- PÁGINA 2 -->
+    <div class="comic-page">
+        <div class="sound-effect center">💥 BOOM! 💥</div>
+        
+        <div class="caption-box">
+            📅 <strong>AÑOS 1980:</strong> ¡El nacimiento de una nueva era!
+        </div>
+        
+        <div class="panel explosive zoom-effect">
+            <div class="explosion-text">
+                ¡KDD NACE!<br>
+                <small style="font-size: 0.5em;">(Knowledge Discovery in Databases)</small>
+            </div>
+        </div>
+        
+        <div class="panel action">
+            <div class="speed-lines"></div>
+            <div class="character-scene">
+                <div class="character">
+                    <span class="character-img">🤖</span>
+                    <span class="character-name">MINERO BOT</span>
+                </div>
+                <div style="flex: 1;">
+                    <div class="speech-bubble">
+                        ¡EUREKA! En los 80s apareció el <span class="highlight">KDD</span>. ¡Por fin podíamos hacer que las máquinas descubrieran conocimiento POR SÍ MISMAS! 🚀 ¡Es como darles SUPER PODERES!
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="panel-row three-cols">
+            <div class="panel">
+                <div style="text-align: center; font-size: 3em; margin-bottom: 10px;">🧠</div>
+                <div style="text-align: center; font-weight: bold;">Inteligencia Artificial</div>
+            </div>
+            <div class="panel">
+                <div style="text-align: center; font-size: 3em; margin-bottom: 10px;">📊</div>
+                <div style="text-align: center; font-weight: bold;">Estadística Avanzada</div>
+            </div>
+            <div class="panel">
+                <div style="text-align: center; font-size: 3em; margin-bottom: 10px;">💾</div>
+                <div style="text-align: center; font-weight: bold;">Bases de Datos</div>
+            </div>
+        </div>
+        
+        <div class="panel dramatic">
+            <div class="character-scene">
+                <div style="flex: 1;">
+                    <div class="speech-bubble right">
+                        ¡Combinamos tres poderes! Ya no necesitábamos programar TODO manualmente. Las máquinas <span class="highlight">APRENDÍAN</span> solas. ¡Era REVOLUCIONARIO! ⚡
+                    </div>
+                </div>
+                <div class="character">
+                    <span class="character-img">👨‍🔬</span>
+                    <span class="character-name">DR. DATA</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="page-number">- 2 -</div>
+    </div>
+    
+    <!-- PÁGINA 3 -->
+    <div class="comic-page">
+        <div class="sound-effect top-left">CRASH!</div>
+        <div class="sound-effect top-right" style="animation-delay: 0.2s;">BANG!</div>
+        
+        <div class="caption-box">
+            📅 <strong>AÑOS 1990:</strong> ¡LA ERA DORADA! ⛏️💎
+        </div>
+        
+        <div class="panel explosive">
+            <div class="speed-lines"></div>
+            <div style="text-align: center; font-size: 5em; margin: 30px 0;">⛏️💎⛏️</div>
+            <div class="explosion-text">
+                ¡DATA MINING!<br>
+                <small style="font-size: 0.5em;">¡Minería de Datos!</small>
+            </div>
+        </div>
+        
+        <div class="panel action">
+            <div class="character-scene">
+                <div class="character">
+                    <span class="character-img">🧮</span>
+                    <span class="character-name">PROF. STATS</span>
+                </div>
+                <div style="flex: 1;">
+                    <div class="speech-bubble">
+                        Los 90s fueron INCREÍBLES! 🌟 El término <span class="highlight">"DATA MINING"</span> se volvió SÚPER FAMOSO. Las empresas decían: "¡Necesitamos esto AHORA!"
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="panel-row two-cols">
+            <div class="panel dramatic">
+                <div style="font-weight: bold; margin-bottom: 15px; font-size: 1.3em;">🌲 ALGORITMOS FAMOSOS:</div>
+                <div style="line-height: 2;">
+                    ✓ Árboles de Decisión<br>
+                    ✓ Redes Neuronales<br>
+                    ✓ Reglas de Asociación<br>
+                    ✓ Clustering
+                </div>
+            </div>
+            
+            <div class="panel action">
+                <div class="speech-bubble">
+                    <strong>Historia real:</strong> Los supermercados descubrieron que <span class="highlight">"quien compra pañales, compra cerveza"</span> 🍺👶 ¡Increíble!
+                </div>
+            </div>
+        </div>
+        
+        <div class="panel explosive">
+            <div class="character-scene">
+                <div style="flex: 1;">
+                    <div class="speech-bubble right">
+                        ¡Bancos, supermercados, hospitales! TODOS querían <span class="highlight">PREDECIR EL FUTURO</span> con sus datos. Era como tener una BOLA DE CRISTAL... ¡pero con matemáticas! 🔮✨
+                    </div>
+                </div>
+                <div class="character">
+                    <span class="character-img">🤖</span>
+                    <span class="character-name">MINERO BOT</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="page-number">- 3 -</div>
+    </div>
+    
+    <!-- PÁGINA 4 -->
+    <div class="comic-page">
+        <div class="sound-effect center" style="font-size: 5em;">🌊 TSUNAMI! 🌊</div>
+        
+        <div class="caption-box">
+            📅 <strong>AÑOS 2000-2010:</strong> ¡La avalancha de datos!
+        </div>
+        
+        <div class="panel explosive">
+            <div class="speed-lines"></div>
+            <div class="explosion-text" style="font-size: 3em;">
+                BIG DATA<br>
+                <small style="font-size: 0.4em;">¡DATOS MASIVOS!</small>
+            </div>
+        </div>
+        
+        <div class="panel action">
+            <div class="character-scene">
+                <div class="character">
+                    <span class="character-img">👨‍🔬</span>
+                    <span class="character-name">DR. DATA</span>
+                </div>
+                <div style="flex: 1;">
+                    <div class="speech-bubble">
+                        ¡Internet EXPLOTÓ! 💥 Facebook, YouTube, Twitter... ¡Millones de personas generando datos TODO EL TIEMPO! Era un <span class="highlight">TSUNAMI DE INFORMACIÓN</span>!
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="panel dramatic">
+            <div style="text-align: center; font-size: 2em; font-weight: bold; margin-bottom: 20px;">
+                LAS 3 Vs DEL BIG DATA:
+            </div>
+            <div class="panel-row three-cols">
+                <div style="text-align: center;">
+                    <div style="font-size: 3em;">📦</div>
+                    <div style="font-weight: bold; margin-top: 10px;">VOLUMEN</div>
+                    <div>¡Terabytes!</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 3em;">⚡</div>
+                    <div style="font-weight: bold; margin-top: 10px;">VELOCIDAD</div>
+                    <div>¡En tiempo real!</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 3em;">🎨</div>
+                    <div style="font-weight: bold; margin-top: 10px;">VARIEDAD</div>
+                    <div>¡Texto, video, todo!</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="panel-row two-cols">
+            <div class="panel action">
+                <div class="character-scene">
+                    <div style="flex: 1;">
+                        <div class="speech-bubble right">
+                            Google, Amazon, Facebook necesitaban NUEVAS ARMAS. Nacieron <span class="highlight">Hadoop</span> y <span class="highlight">Spark</span> para procesar datos GIGANTES! 🚀
+                        </div>
+                    </div>
+                    <div class="character">
+                        <span class="character-img">🧮</span>
+                        <span class="character-name">PROF. STATS</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel explosive">
+                <div style="text-align: center; font-size: 4em; margin: 20px 0;">☁️💾☁️</div>
+                <div style="text-align: center; font-weight: bold;">LA NUBE</div>
+                <div style="text-align: center; margin-top: 10px;">¡Almacenamiento infinito!</div>
+            </div>
+        </div>
+        
+        <div class="page-number">- 4 -</div>
+    </div>
+    
+    <!-- PÁGINA 5 -->
+    <div class="comic-page">
+        <div class="sound-effect top-left" style="font-size: 4em;">⚡ZAP!⚡</div>
+        <div class="sound-effect top-right" style="font-size: 4em; animation-delay: 0.3s;">✨POW!✨</div>
+        
+        <div class="caption-box">
+            📅 <strong>HOY - 2020s:</strong> ¡La Era de la INTELIGENCIA ARTIFICIAL! 🤖🧠
+        </div>
+        
+        <div class="panel explosive">
+            <div class="speed-lines"></div>
+            <div style="text-align: center; font-size: 6em; margin: 20px 0;">🤖🧠🚀</div>
+            <div class="explosion-text" style="font-size: 2.5em;">
+                ¡IA + MACHINE LEARNING!
+            </div>
+        </div>
+        
+        <div class="panel action">
+            <div class="character-scene">
+                <div class="character">
+                    <span class="character-img">🤖</span>
+                    <span class="character-name">MINERO BOT</span>
+                </div>
+                <div style="flex: 1;">
+                    <div class="speech-bubble">
+                        ¡HOY LA MINERÍA DE DATOS ES SÚPER PODEROSA! Con <span class="highlight">Machine Learning</span> y <span class="highlight">Deep Learning</span>, las máquinas pueden hacer COSAS INCREÍBLES! 🌟
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="panel-row two-cols">
+            <div class="panel dramatic">
+                <div style="font-weight: bold; font-size: 1.3em; margin-bottom: 15px;">🎯 APLICACIONES ACTUALES:</div>
+                <div style="line-height: 2;">
+                    📺 Netflix te recomienda series<br>
+                    🎵 Spotify tus canciones<br>
+                    🏥 Detecta enfermedades<br>
+                    🚗 Autos autónomos<br>
+                    📸 Reconoce caras<br>
+                    🗣️ Traduce idiomas
+                </div>
+            </div>
+            
+            <div class="panel action">
+                <div style="text-align: center; font-size: 5em; margin: 20px 0;">🎮📱💻</div>
+                <div class="speech-bubble">
+                    ¡Está en TODAS PARTES! Tu celular, videojuegos, redes sociales... ¡TODO USA MINERÍA DE DATOS! 🌍
+                </div>
+            </div>
+        </div>
+        
+        <div class="panel explosive">
+            <div class="character-scene">
+                <div style="flex: 1;">
+                    <div class="speech-bubble right">
+                        Desde detectar fraudes hasta salvar vidas en hospitales... ¡La minería de datos CAMBIÓ EL MUNDO! Y esto es solo el COMIENZO! 🚀✨
+                    </div>
+                </div>
+                <div class="character">
+                    <span class="character-img">👨‍🔬</span>
+                    <span class="character-name">DR. DATA</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="page-number">- 5 -</div>
+    </div>
+    
+    <!-- PÁGINA FINAL -->
+    <div class="comic-page" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+        <div style="text-align: center; padding: 80px 20px;">
+            <div style="font-size: 6em; margin-bottom: 30px;">🎬✨🎉</div>
+            
+            <h2 style="font-family: 'Bangers', cursive; font-size: 4em; text-shadow: 5px 5px 0px #000; margin-bottom: 30px; letter-spacing: 3px;">
+                ¡FIN... O APENAS EL COMIENZO! 🔮
+            </h2>
+            
+            <div style="font-size: 1.5em; line-height: 2; margin-bottom: 40px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+                <p style="margin-bottom: 20px;">
+                    <strong>De 1960 a 2025...</strong> La minería de datos pasó de simples cálculos a INTELIGENCIA ARTIFICIAL que parece MAGIA! ✨
+                </p>
+                
+                <p style="margin-bottom: 20px;">
+                    📊 ➜ 💾 ➜ ⛏️ ➜ 🌊 ➜ 🤖 ➜ <strong>¿?</strong>
+                </p>
+                
+                <p style="font-size: 1.3em; margin-top: 40px;">
+                    <strong>¿QUÉ VIENE DESPUÉS?</strong><br>
+                    <span style="font-size: 1.5em;">¡TÚ LO DECIDES! 🌟</span>
+                </p>
+            </div>
+            
+            <div style="margin-top: 60px; padding: 30px; background: rgba(255,255,255,0.2); border-radius: 20px; border: 4px solid white;">
+                <div style="font-size: 3em; margin-bottom: 20px;">👨‍🔬🧮🤖</div>
+                <p style="font-size: 1.2em;">
+                    <strong>Nuestros héroes:</strong><br>
+                    Dr. Data • Prof. Stats • Minero Bot
+                </p>
+                <p style="margin-top: 20px; font-size: 0.9em; opacity: 0.9;">
+                    Cómic Educativo: Historia de la Minería de Datos<br>
+                    De los años 60 hasta hoy 🚀
+                </p>
+            </div>
+        </div>
+        
+        <div class="page-number" style="color: white; text-shadow: 3px 3px 0px #000;">- FIN -</div>
+    </div>
+    
+    <script>
+        // Animación adicional al cargar
+        window.addEventListener('load', function() {
+            const panels = document.querySelectorAll('.panel');
+            panels.forEach((panel, index) => {
+                panel.style.opacity = '0';
+                panel.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    panel.style.transition = 'all 0.5s ease-out';
+                    panel.style.opacity = '1';
+                    panel.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
